@@ -2,7 +2,7 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "adminUsername": {
+    "adminUserName": {
       "type": "string"
     },
     "adminPassword": {
@@ -29,7 +29,7 @@
   },
   "variables": {
     "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -ODLID ', parameters('ODLID'))]",
-    "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUsername ', parameters('adminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'))]",
+    "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUserName ', parameters('adminUserName'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'))]",
     "AzureSubscriptionID": "[subscription().subscriptionId]",
     "AzureTenantID": "[subscription().tenantId]",
     "location": "[resourceGroup().location]",
@@ -60,7 +60,7 @@
       "properties": {
         "osProfile": {
           "computerName": "[variables('vmName')]",
-          "adminUsername": "[parameters('adminUsername')]",
+          "adminUserName": "[parameters('adminUserName')]",
           "adminPassword": "[parameters('adminPassword')]",
           "windowsConfiguration": {
             "provisionVmAgent": "true"
@@ -219,9 +219,9 @@
       "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses',variables('publicIpAddressName'))).dnsSettings.fqdn]",
       "type": "string"
     },
-    "adminUsername": {
+    "adminUserName": {
       "type": "string",
-      "value": "[parameters('adminUsername')]"
+      "value": "[parameters('adminUserName')]"
     },
     "adminPassword": {
       "type": "string",
